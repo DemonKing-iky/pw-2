@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun, Dhea!</title>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes confetti {
+      0% {transform: translateY(-100%); opacity: 1;}
+      100% {transform: translateY(100vh); opacity: 0;}
+    }
+
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #fbd3e9, #bb377d);
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      max-width: 90%;
+      width: 100%;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: fadeIn 2s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    h2, h1, .message, .signature {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .show {
+      display: block !important;
+      opacity: 1 !important;
+      animation: fadeIn 1s ease;
+    }
+    .message {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+    .signature {
+      margin-top: 2rem;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      animation: confetti 3s linear infinite;
+      top: 0;
+      left: 50%;
+      z-index: -1;
+      border-radius: 50%;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      .message {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" onclick="handleClick()">
+    <h2 id="hai">Hai, Dhea!</h2>
+    <h1 id="title">Selamat Ulang Tahun, Dhea Prilla Istilova</h1>
+    <p id="hint">Klik di sini...</p>
+    <div class="message" id="message">Terimakasih untuk semuanya karna telah jadi pelajaran hidup yang sangat berharga buat aku, Tenang aja aku bakal lupain janji aku kamu dan kita jadi gakan merasa terbayangi terus jadi Bahagialah selalu dengan pilihanmu apapun itu, sekali lagi terimakasih berkatmu aku tidak akan meragukan feelingku lagi aku mungkin tidak akan kembali lagi dalam hidupmu.
+      <p>- bye ya mari jangan bertemu lagi -</p>
+    </div>
+    <div class="signature" id="signature">- ex</div>
+  </div>
+
+  <audio id="clickSound" src="https://www.myinstants.com/media/sounds/pop-up.mp3"></audio>
+
+  <script>
+    let clickCount = 0;
+
+    function createConfetti() {
+      for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + 'px';
+        confetti.style.animationDelay = Math.random() + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    function handleClick() {
+      const sound = document.getElementById('clickSound');
+      sound.volume = 0.5;
+      sound.play();
+
+      if (clickCount === 0) {
+        document.getElementById('hai').classList.add('show');
+        document.getElementById('hint').innerText = 'Klik lagi...';
+      } else if (clickCount === 1) {
+        document.getElementById('title').classList.add('show');
+        document.getElementById('hint').innerText = 'Dan sekali lagi...';
+      } else if (clickCount === 2) {
+        document.getElementById('message').classList.add('show');
+        document.getElementById('signature').classList.add('show');
+        document.getElementById('hint').style.display = 'none';
+        createConfetti();
+      }
+
+      clickCount++;
+    }
+  </script>
+</body>
+</html>
